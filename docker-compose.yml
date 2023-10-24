@@ -1,0 +1,30 @@
+﻿services:
+  masstransitdocker:
+    image: masstransitdocker
+    build:
+      context: .
+      dockerfile: src/MassTransitDocker/Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MassTransitDocker:RabbitMq:Host=rabbitmq
+      - MassTransitDocker:RabbitMq:Username=user
+      - MASSTRANSITDOCKER:RABBITMQ:PASSWORD=password
+      - Serilog:WriteTo:1:Args:serverUrl=http://seq:5341
+
+  rabbitmq:
+    image: masstransit/rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "8888:80"
+    environment:
+      - ACCEPT_EULA=Y

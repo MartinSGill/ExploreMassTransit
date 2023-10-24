@@ -1,5 +1,11 @@
 ﻿<Project>
 
+  <PropertyGroup Label="Framework">
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latestmajor</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
   <PropertyGroup Label="Folders">
     <SrcFolder>$(MSBuildThisFileDirectory)src\</SrcFolder>
     <TestFolder>$(MSBuildThisFileDirectory)test\</TestFolder>
@@ -57,7 +63,8 @@
     <WarningsAsErrors>$(TreatWarningsAsErrors)</WarningsAsErrors>
     <CodeAnalysisTreatWarningsAsErrors>$(TreatWarningsAsErrors)</CodeAnalysisTreatWarningsAsErrors>
 
-    <NoWarn>$(NoWarn),CA2007</NoWarn>
+    <!-- Warning CS1591 : Missing XML comment for publicly visible -->
+    <NoWarn>$(NoWarn),CA2007,CS1591</NoWarn>
     <NoWarn Condition="$(MSBuildProjectName.EndsWith('Tests'))">$(NoWarn),CS8602,CS8604,CA1707,RS0016,RS0037</NoWarn>
   </PropertyGroup>
 

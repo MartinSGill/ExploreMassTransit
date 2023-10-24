@@ -1,10 +1,12 @@
 using System;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace MassTransitDocker.Consumers;
 
+[UsedImplicitly]
 public class MassTransitDockerConsumer : IConsumer<Contracts.MassTransitDocker>
 {
     private readonly ILogger<MassTransitDockerConsumer> _logger;
