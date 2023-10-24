@@ -1,0 +1,64 @@
+﻿<Project>
+
+  <PropertyGroup Label="Folders">
+    <SrcFolder>$(MSBuildThisFileDirectory)src\</SrcFolder>
+    <TestFolder>$(MSBuildThisFileDirectory)test\</TestFolder>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup Label="Default Analyzers">
+    <!-- Code Helpers -->
+    <PackageReference Include="JetBrains.Annotations"/>
+
+    <!-- Meta Package for all MS Analyzers -->
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.CodeAnalysis.Metrics">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="SonarAnalyzer.CSharp"/>
+  </ItemGroup>
+
+  <ItemGroup Label="Test Analyzers" Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+    <PackageReference Include="xunit.analyzers"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(AssemblyName).Tests"/>
+  </ItemGroup>
+
+  <!-- Test Packages -->
+  <ItemGroup Label="Test Packages" Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="xunit"/>
+    <PackageReference Include="xunit.runner.visualstudio"/>
+    <PackageReference Include="FluentAssertions"/>
+    <PackageReference Include="FluentAssertions.Analyzers"/>
+    <PackageReference Include="Moq"/>
+    <PackageReference Include="AutoFixture"/>
+    <PackageReference Include="AutoFixture.AutoMoq"/>
+    <PackageReference Include="AutoFixture.Xunit2"/>
+  </ItemGroup>
+
+  <PropertyGroup Label="Settings for released projects" Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!-- Analyzers -->
+  <PropertyGroup Label="Analyzer Settings">
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors>$(TreatWarningsAsErrors)</WarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>$(TreatWarningsAsErrors)</CodeAnalysisTreatWarningsAsErrors>
+
+    <NoWarn>$(NoWarn),CA2007</NoWarn>
+    <NoWarn Condition="$(MSBuildProjectName.EndsWith('Tests'))">$(NoWarn),CS8602,CS8604,CA1707,RS0016,RS0037</NoWarn>
+  </PropertyGroup>
+
+</Project>
