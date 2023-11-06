@@ -53,6 +53,8 @@ public class MyHostBuilder : HostBuilder, IMyHostBuilder
 
     private void ConfigureMassTransit(HostBuilderContext hostContext, IServiceCollection services)
     {
+        Log.Information("Options Root {OptionsRoot}", _options.SectionKey);
+        Log.Information("RabbitMq Options Root {OptionsRoot}", RabbitMqOptions.DefaultSection);
         var rabbitMqOptions = hostContext
                               .Configuration
                               .GetSection(_options.SectionKey)

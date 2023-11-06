@@ -5,6 +5,7 @@ output/
 .nuke/temp/
 .sonarqube/
 
+docker-compose.generated.override.yml
 .idea/**/sonarlint
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,jetbrains+all,visualstudio,visualstudiocode,dotnetcore
