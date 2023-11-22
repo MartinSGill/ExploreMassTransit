@@ -22,10 +22,20 @@ public sealed class Worker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("Worker running at: {Time}", DateTimeOffset.Now);
-
             var message = new Contracts.MassTransitDocker() { Value = "Hello MassTransitDocker" };
-            await _bus.Publish(message, stoppingToken);
+            var correlationId = Guid.NewGuid();
+            _logger.LogInformation(
+                "Worker running at: {Time}, with CorrId: {CorrelationId}",
+                DateTimeOffset.Now,
+                correlationId);
+
+            // Conversation vs Correlation: https://stackoverflow.com/a/55300111/270178
+            // Can tweak the context here so that I can pass the correlationId
+            // allowing me to return it to the caller (if this were via an API)
+            await _bus.Publish(
+                message,
+                context => { context.CorrelationId = correlationId; },
+                stoppingToken);
 
             await Task.Delay(10_000, stoppingToken);
         }

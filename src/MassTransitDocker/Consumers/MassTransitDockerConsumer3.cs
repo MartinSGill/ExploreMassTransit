@@ -7,26 +7,23 @@ using Microsoft.Extensions.Logging;
 namespace MassTransitDocker.Consumers;
 
 [UsedImplicitly]
-public class MassTransitDockerConsumer : IConsumer<Contracts.MassTransitDocker>
+public class MassTransitDockerConsumer3 : IConsumer<Contracts.MassTransitDocker3>
 {
-    private readonly ILogger<MassTransitDockerConsumer> _logger;
-    private readonly IBus _bus;
+    private readonly ILogger<MassTransitDockerConsumer3> _logger;
 
-    public MassTransitDockerConsumer(ILogger<MassTransitDockerConsumer> logger, IBus bus)
+    public MassTransitDockerConsumer3(ILogger<MassTransitDockerConsumer3> logger)
     {
         _logger = logger;
-        _bus = bus;
     }
 
-    public Task Consume(ConsumeContext<Contracts.MassTransitDocker> context)
+    public Task Consume(ConsumeContext<Contracts.MassTransitDocker3> context)
     {
         _logger.LogInformation(
             "{Name} Received {Value} (ConversatonId: {ConversationId}, Initiator: {InitiatorId})",
             GetType().Name,
             context.Message.Value,
             context.ConversationId,
-            context.InitiatorId);
-        _bus.Publish(new Contracts.MassTransitDocker2 { Value = context.Message.Value });
+        context.InitiatorId);
         return Task.CompletedTask;
     }
 }

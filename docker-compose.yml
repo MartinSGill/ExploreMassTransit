@@ -12,6 +12,7 @@ services:
       - MassTransitDocker:RabbitMq:Host=rabbitmq
       - MassTransitDocker:RabbitMq:Username=user
       - MASSTRANSITDOCKER:RABBITMQ:PASSWORD=password
+      - Serilog:WriteTo:1:Name=Seq
       - Serilog:WriteTo:1:Args:serverUrl=http://seq:5341
       - ZIPKIN_HOSTNAME=zipkin
     depends_on:
