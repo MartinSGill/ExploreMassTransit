@@ -2,35 +2,36 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-
   <ItemGroup Label="Directory.Build.props">
-      <PackageVersion Include="JetBrains.Annotations" Version="2023.2.0" />
-      <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4"/>
-      <PackageVersion Include="Microsoft.CodeAnalysis.Metrics" Version="3.3.4"/>
-      <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.12.0.78982"/>
+    <PackageVersion Include="JetBrains.Annotations" Version="2023.2.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Metrics" Version="3.3.4" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageVersion Include="OpenTelemetry" Version="1.6.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Zipkin" Version="1.6.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.6.0" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.12.0.78982" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.1"/>
-    <PackageVersion Include="MassTransit" Version="8.1.1"/>
-    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.1.1"/>
-    <PackageVersion Include="Serilog.AspNetCore" Version="7.0.0"/>
-    <PackageVersion Include="Serilog.Enrichers.Thread" Version="3.1.0"/>
-    <PackageVersion Include="Serilog.Exceptions" Version="8.4.0"/>
-    <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0"/>
-    <PackageVersion Include="Serilog.Sinks.Seq" Version="5.2.3"/>
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageVersion Include="MassTransit" Version="8.1.1" />
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.1.1" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageVersion Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
+    <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageVersion Include="Serilog.Sinks.Seq" Version="5.2.3" />
   </ItemGroup>
-
   <ItemGroup Label="Test Projects">
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2"/>
-    <PackageVersion Include="xunit" Version="2.5.3"/>
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3"/>
-    <PackageVersion Include="FluentAssertions" Version="6.12.0"/>
-    <PackageVersion Include="FluentAssertions.Analyzers" Version="0.25.0"/>
-    <PackageVersion Include="Moq" Version="4.20.69"/>
-    <PackageVersion Include="AutoFixture" Version="4.18.0"/>
-    <PackageVersion Include="AutoFixture.AutoMoq" Version="4.18.0"/>
-    <PackageVersion Include="AutoFixture.Xunit2" Version="4.18.0"/>
-    <PackageVersion Include="xunit.analyzers" Version="1.4.0"/>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageVersion Include="xunit" Version="2.5.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
+    <PackageVersion Include="FluentAssertions.Analyzers" Version="0.25.0" />
+    <PackageVersion Include="Moq" Version="4.20.69" />
+    <PackageVersion Include="AutoFixture" Version="4.18.0" />
+    <PackageVersion Include="AutoFixture.AutoMoq" Version="4.18.0" />
+    <PackageVersion Include="AutoFixture.Xunit2" Version="4.18.0" />
+    <PackageVersion Include="xunit.analyzers" Version="1.4.0" />
   </ItemGroup>
 </Project>

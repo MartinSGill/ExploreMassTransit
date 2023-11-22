@@ -1,6 +1,8 @@
-﻿services:
+version: '3.4'
+
+services:
   masstransitdocker:
-    image: masstransitdocker
+    image: ${DOCKER_REGISTRY-}masstransitdocker
     build:
       context: .
       dockerfile: src/MassTransitDocker/Dockerfile
@@ -11,6 +13,11 @@
       - MassTransitDocker:RabbitMq:Username=user
       - MASSTRANSITDOCKER:RABBITMQ:PASSWORD=password
       - Serilog:WriteTo:1:Args:serverUrl=http://seq:5341
+      - ZIPKIN_HOSTNAME=zipkin
+    depends_on:
+      - rabbitmq
+      - seq
+      - zipkin
 
   rabbitmq:
     image: masstransit/rabbitmq:latest
@@ -28,3 +35,8 @@
       - "8888:80"
     environment:
       - ACCEPT_EULA=Y
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411

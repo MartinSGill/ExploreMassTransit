@@ -1,12 +1,15 @@
-﻿{
+{
   "profiles": {
     "MassTransitDocker": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development",
         "Serilog:WriteTo:1:Args:serverUrl": "http://localhost:5341"
-      }
+      },
+      "dotnetRunMessages": "true"
+    },
+    "Docker": {
+      "commandName": "Docker"
     }
   }
 }

@@ -3,10 +3,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using MassTransit;
+using MassTransit.Logging;
 using MassTransitDocker.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Serilog;
 using Serilog.Debugging;
 using Serilog.Exceptions;
@@ -46,7 +49,8 @@ public class MyHostBuilder : HostBuilder, IMyHostBuilder
         var builder = new MyHostBuilder(options);
         builder.ConfigureDefaults(args)
                .UseSerilog(builder.ConfigureSerilog)
-               .ConfigureServices(builder.ConfigureMassTransit);
+               .ConfigureServices(builder.ConfigureMassTransit)
+               .ConfigureServices(builder.ConfigureOpenTelemetry);
         return builder;
     }
 
@@ -126,5 +130,31 @@ public class MyHostBuilder : HostBuilder, IMyHostBuilder
                .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                .WriteTo.Seq(IsRunningInContainer ? "http://seq:5431" : "http://localhost:5431")
                .CreateBootstrapLogger();
+    }
+
+    void ConfigureResource(ResourceBuilder r)
+    {
+        r.AddService(
+            "MassTransitDocker",
+            serviceVersion: "Version",
+            serviceInstanceId: Environment.MachineName);
+    }
+
+
+    private void ConfigureOpenTelemetry(IServiceCollection services)
+    {
+        Log.Information("Adding OpenTelemetry");
+        services.AddOpenTelemetry()
+                .ConfigureResource(ConfigureResource)
+                .WithTracing(
+                    builder => builder
+                               .AddSource(DiagnosticHeaders.DefaultListenerName) // MassTransit ActivitySource
+                               .AddZipkinExporter(
+                                   b =>
+                                   {
+                                       var zipkinHostName = Environment.GetEnvironmentVariable("ZIPKIN_HOSTNAME") ??
+                                                            "localhost";
+                                       b.Endpoint = new Uri($"http://{zipkinHostName}:9411/api/v2/spans");
+                                   }));
     }
 }
